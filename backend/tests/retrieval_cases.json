@@ -1,0 +1,8 @@
+[
+  {"query":"How are embeddings used to represent semantic similarity?", "section_keywords":["embedding","semantic"]},
+  {"query":"How should documents be chunked for retrieval augmented generation?", "section_keywords":["chunk","retrieval"]},
+  {"query":"What are the trade-offs between temperature, top-k, and top-p sampling?", "section_keywords":["temperature","top-k","top-p","sampling"]},
+  {"query":"What are limitations and biases of using AI as a judge?", "section_keywords":["judge","bias"]},
+  {"query":"How do agents use tools for knowledge augmentation and capability extension?", "section_keywords":["tools","knowledge augmentation","capability extension"]},
+  {"query":"How do latency, time to first token, and time per output token measure inference performance?", "section_keywords":["latency","ttft","tpot","performance"]}
+]

@@ -1,0 +1,366 @@
+{
+  "nodes": [
+    {
+      "id": "foundations",
+      "name": "Foundation models",
+      "description": "Learn how broadly trained models become the foundation for many applications.",
+      "chapter": "Chapter 1",
+      "section": "The Rise of AI Engineering",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "modeling",
+      "name": "Training & sampling",
+      "description": "Connect model architecture, training data, post-training, and sampling behavior.",
+      "chapter": "Chapter 2",
+      "section": "Modeling",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 130
+      }
+    },
+    {
+      "id": "structured",
+      "name": "Structured outputs",
+      "description": "Make model output fit a schema and validate it at the application boundary.",
+      "chapter": "Chapter 2",
+      "section": "Structured Outputs",
+      "status": "unexplored",
+      "position": {
+        "x": 235,
+        "y": 130
+      }
+    },
+    {
+      "id": "evaluation",
+      "name": "Evaluation",
+      "description": "Define useful criteria and measure the behavior of an AI application.",
+      "chapter": "Chapter 3",
+      "section": "Evaluation Methodology",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 260
+      }
+    },
+    {
+      "id": "embeddings",
+      "name": "Embeddings",
+      "description": "Represent meaning as vectors that can be compared using similarity.",
+      "chapter": "Chapter 3",
+      "section": "Introduction to Embedding",
+      "status": "unexplored",
+      "position": {
+        "x": 235,
+        "y": 260
+      }
+    },
+    {
+      "id": "model-selection",
+      "name": "Model selection",
+      "description": "Compare hosted APIs and open models against task, cost, and deployment needs.",
+      "chapter": "Chapter 4",
+      "section": "Model Selection",
+      "status": "unexplored",
+      "position": {
+        "x": 470,
+        "y": 260
+      }
+    },
+    {
+      "id": "prompting",
+      "name": "Prompt engineering",
+      "description": "Use instructions, context, and examples to shape model behavior.",
+      "chapter": "Chapter 5",
+      "section": "Introduction to Prompting",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 390
+      }
+    },
+    {
+      "id": "safety",
+      "name": "Safety & guardrails",
+      "description": "Reason about prompt attacks, trust boundaries, and defensive system design.",
+      "chapter": "Chapter 5",
+      "section": "Defensive Prompt Engineering",
+      "status": "unexplored",
+      "position": {
+        "x": 470,
+        "y": 390
+      }
+    },
+    {
+      "id": "retrieval",
+      "name": "Semantic retrieval",
+      "description": "Use embeddings to find relevant information in an external corpus.",
+      "chapter": "Chapter 6",
+      "section": "Retrieval Algorithms",
+      "status": "unexplored",
+      "position": {
+        "x": 235,
+        "y": 390
+      }
+    },
+    {
+      "id": "rag",
+      "name": "RAG",
+      "description": "Retrieve useful external context and include it in a model request.",
+      "chapter": "Chapter 6",
+      "section": "RAG",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 520
+      }
+    },
+    {
+      "id": "tools",
+      "name": "Tool use",
+      "description": "Let a model request a validated function and consume its structured result.",
+      "chapter": "Chapter 6",
+      "section": "Tools",
+      "status": "unexplored",
+      "position": {
+        "x": 235,
+        "y": 520
+      }
+    },
+    {
+      "id": "agents",
+      "name": "Agents",
+      "description": "Build a bounded loop in which models interact with tools and their environment.",
+      "chapter": "Chapter 6",
+      "section": "Agents",
+      "status": "unexplored",
+      "position": {
+        "x": 470,
+        "y": 520
+      }
+    },
+    {
+      "id": "retrieval-eval",
+      "name": "Retrieval evaluation",
+      "description": "Measure whether retrieval returns information needed to answer a question.",
+      "chapter": "Chapter 6",
+      "section": "Retrieval Optimization",
+      "status": "unexplored",
+      "position": {
+        "x": 235,
+        "y": 650
+      }
+    },
+    {
+      "id": "finetuning",
+      "name": "Finetuning",
+      "description": "Adapt model weights and assess when this is preferable to prompting or retrieval.",
+      "chapter": "Chapter 7",
+      "section": "Finetuning",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 780
+      }
+    },
+    {
+      "id": "data",
+      "name": "Dataset engineering",
+      "description": "Curate, inspect, deduplicate, and improve data for AI applications.",
+      "chapter": "Chapter 8",
+      "section": "Data Curation",
+      "status": "unexplored",
+      "position": {
+        "x": 470,
+        "y": 780
+      }
+    },
+    {
+      "id": "inference",
+      "name": "Inference optimization",
+      "description": "Understand latency, throughput, memory, and the serving trade-offs.",
+      "chapter": "Chapter 9",
+      "section": "Inference Performance Metrics",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 910
+      }
+    },
+    {
+      "id": "caching",
+      "name": "Caching & batching",
+      "description": "Reduce repeated work and increase inference efficiency.",
+      "chapter": "Chapter 9",
+      "section": "Inference Service Optimization",
+      "status": "unexplored",
+      "position": {
+        "x": 235,
+        "y": 910
+      }
+    },
+    {
+      "id": "architecture",
+      "name": "System architecture",
+      "description": "Connect retrieval, routing, guardrails, and agents into reliable applications.",
+      "chapter": "Chapter 10",
+      "section": "AI Engineering Architecture",
+      "status": "unexplored",
+      "position": {
+        "x": 0,
+        "y": 1040
+      }
+    },
+    {
+      "id": "observability",
+      "name": "Observability",
+      "description": "Use metrics, logs, and feedback to understand systems after deployment.",
+      "chapter": "Chapter 10",
+      "section": "Monitoring and Observability",
+      "status": "unexplored",
+      "position": {
+        "x": 470,
+        "y": 1040
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "foundations-modeling",
+      "source": "foundations",
+      "target": "modeling",
+      "relationship": "prerequisite"
+    },
+    {
+      "id": "modeling-structured",
+      "source": "modeling",
+      "target": "structured",
+      "relationship": "enables"
+    },
+    {
+      "id": "modeling-evaluation",
+      "source": "modeling",
+      "target": "evaluation",
+      "relationship": "prerequisite"
+    },
+    {
+      "id": "evaluation-model-selection",
+      "source": "evaluation",
+      "target": "model-selection",
+      "relationship": "enables"
+    },
+    {
+      "id": "evaluation-embeddings",
+      "source": "evaluation",
+      "target": "embeddings",
+      "relationship": "related_to"
+    },
+    {
+      "id": "modeling-prompting",
+      "source": "modeling",
+      "target": "prompting",
+      "relationship": "prerequisite"
+    },
+    {
+      "id": "embeddings-retrieval",
+      "source": "embeddings",
+      "target": "retrieval",
+      "relationship": "enables"
+    },
+    {
+      "id": "retrieval-rag",
+      "source": "retrieval",
+      "target": "rag",
+      "relationship": "component_of"
+    },
+    {
+      "id": "prompting-rag",
+      "source": "prompting",
+      "target": "rag",
+      "relationship": "enables"
+    },
+    {
+      "id": "prompting-tools",
+      "source": "prompting",
+      "target": "tools",
+      "relationship": "enables"
+    },
+    {
+      "id": "tools-agents",
+      "source": "tools",
+      "target": "agents",
+      "relationship": "component_of"
+    },
+    {
+      "id": "safety-agents",
+      "source": "safety",
+      "target": "agents",
+      "relationship": "related_to"
+    },
+    {
+      "id": "rag-retrieval-eval",
+      "source": "rag",
+      "target": "retrieval-eval",
+      "relationship": "evaluated_by"
+    },
+    {
+      "id": "evaluation-retrieval-eval",
+      "source": "evaluation",
+      "target": "retrieval-eval",
+      "relationship": "prerequisite"
+    },
+    {
+      "id": "rag-finetuning",
+      "source": "rag",
+      "target": "finetuning",
+      "relationship": "related_to"
+    },
+    {
+      "id": "data-finetuning",
+      "source": "data",
+      "target": "finetuning",
+      "relationship": "enables"
+    },
+    {
+      "id": "finetuning-inference",
+      "source": "finetuning",
+      "target": "inference",
+      "relationship": "related_to"
+    },
+    {
+      "id": "inference-caching",
+      "source": "inference",
+      "target": "caching",
+      "relationship": "related_to"
+    },
+    {
+      "id": "inference-architecture",
+      "source": "inference",
+      "target": "architecture",
+      "relationship": "enables"
+    },
+    {
+      "id": "agents-architecture",
+      "source": "agents",
+      "target": "architecture",
+      "relationship": "component_of"
+    },
+    {
+      "id": "architecture-observability",
+      "source": "architecture",
+      "target": "observability",
+      "relationship": "evaluated_by"
+    },
+    {
+      "id": "data-observability",
+      "source": "data",
+      "target": "observability",
+      "relationship": "related_to"
+    }
+  ]
+}
