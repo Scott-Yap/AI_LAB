@@ -4,7 +4,6 @@ import {
   ArrowUp,
   ArrowUpRight,
   BookOpen,
-  Brain,
   ChevronDown,
   CircleHelp,
   History,
@@ -19,6 +18,8 @@ import remarkGfm from "remark-gfm";
 import { api, streamMessage } from "./api";
 import { KnowledgeGraph } from "./KnowledgeGraph";
 import { SettingsDialog } from "./SettingsDialog";
+import { useAppearance } from "./appearance";
+import { runtimeStatus } from "./runtimeStatus";
 import type {
   Concept,
   Conversation,
@@ -63,6 +64,7 @@ function SourceCards({ sources }: { sources: Source[] }) {
 }
 
 export default function App() {
+  const { appearance, changeAppearance } = useAppearance();
   const [settings, setSettings] = useState<Settings>(initialSettings);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [active, setActive] = useState<string | null>(null);
@@ -318,27 +320,12 @@ export default function App() {
         </div>
         <div className="header-actions">
           <span
-            className={`local-badge ${health?.model_available ? "" : "offline"}`}
+            className={`local-badge ${health?.reachable && health.model_loaded && health.embedding_loaded ? "" : "offline"}`}
+            title="Loaded means resident in memory, not actively generating. Unloaded installed models load automatically when needed. Status refreshes every 15 seconds."
           >
             <i />
-            {health?.model_available
-              ? "Local model connected"
-              : "Model unavailable"}
+            {runtimeStatus(health)}
           </span>
-          <button
-            className={`think-toggle ${settings.think ? "enabled" : ""}`}
-            role="switch"
-            aria-checked={settings.think}
-            aria-label="Think mode"
-            disabled={!ready || busy}
-            onClick={() => void toggleThink()}
-          >
-            <Brain size={16} /> Think{" "}
-            <strong>{settings.think ? "ON" : "OFF"}</strong>
-            <span className="toggle-track">
-              <i />
-            </span>
-          </button>
           <button
             className="icon-button"
             title="Tutor settings"
@@ -430,7 +417,7 @@ export default function App() {
               {index?.state === "indexing"
                 ? `Preparing your textbook · ${index.progress ?? 0}%`
                 : index?.searchable
-                  ? "Index rebuild needs attention · Previous index available"
+                  ? "Textbook indexing needs attention · Previous index available"
                   : "Connect your textbook to ground your learning"}
               <ArrowUpRight size={15} />
             </button>
@@ -608,11 +595,29 @@ export default function App() {
                 }}
               />
               <div className="composer-bottom">
-                <span>
+                <div
+                  className="chat-model-options"
+                  aria-label="Chat model options"
+                >
                   <BookOpen size={13} /> AI Engineering{" "}
-                  <span className="composer-dot">·</span>{" "}
-                  {settings.think ? "Think on" : "Think off"}
-                </span>
+                  <span className="composer-dot" aria-hidden="true">
+                    ·
+                  </span>
+                  <button
+                    type="button"
+                    className={`think-toggle ${settings.think ? "enabled" : ""}`}
+                    role="switch"
+                    aria-checked={settings.think}
+                    aria-label="Think mode"
+                    disabled={!ready || busy}
+                    onClick={() => void toggleThink()}
+                  >
+                    Think <strong>{settings.think ? "ON" : "OFF"}</strong>
+                    <span className="toggle-track" aria-hidden="true">
+                      <i />
+                    </span>
+                  </button>
+                </div>
                 {busy ? (
                   <button
                     type="button"
@@ -660,6 +665,8 @@ export default function App() {
           onClose={() => setSettingsOpen(false)}
           onSave={setSettings}
           onIndex={rebuild}
+          appearance={appearance}
+          onAppearanceChange={changeAppearance}
         />
       )}
     </div>

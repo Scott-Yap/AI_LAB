@@ -111,3 +111,31 @@ async def test_ollama_unreachable(config):
     with pytest.raises(RuntimeFailure, match="Start Ollama"):
         await runtime.embed(["hello"])
     await runtime.close()
+
+
+@pytest.mark.parametrize("loaded", [[], ["qwen3.5:9b"], ["qwen3.5:9b", "nomic-embed-text:v1.5"], None])
+async def test_health_distinguishes_installed_and_loaded(config, loaded):
+    def reply(request):
+        if request.url.path == "/api/tags":
+            return httpx.Response(
+                200,
+                json={
+                    "models": [
+                        {"name": config.model},
+                        {"name": config.embedding_model},
+                    ]
+                },
+            )
+        assert request.url.path == "/api/ps"
+        if loaded is None:
+            return httpx.Response(503)
+        return httpx.Response(200, json={"models": [{"name": name} for name in loaded]})
+
+    runtime = OllamaRuntime(config)
+    await runtime.client.aclose()
+    runtime.client = httpx.AsyncClient(transport=httpx.MockTransport(reply), base_url="http://ollama")
+    status = await runtime.health()
+    assert status["reachable"] and status["model_available"] and status["embedding_available"]
+    assert status["model_loaded"] == (config.model in loaded if loaded is not None else None)
+    assert status["embedding_loaded"] == (config.embedding_model in loaded if loaded is not None else None)
+    await runtime.close()

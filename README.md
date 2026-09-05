@@ -82,7 +82,13 @@ Open **Settings → Index textbook**, or run this with the backend running:
 .venv/bin/python scripts/textbook.py search "How does semantic retrieval work?"
 ```
 
-Rebuild deliberately with **Settings → Rebuild index** or:
+Appearance is available in **Settings → Appearance**: System, Light, or Dark.
+It applies immediately and is saved in this browser; System follows OS theme changes.
+The compact **Think ON/OFF** switch beside **AI Engineering** in the chat composer
+uses the existing saved Think preference. Graph spacing is presentation-only;
+curriculum relationships and concept actions are unchanged.
+
+Rebuild deliberately with **Settings → Advanced → Re-index textbook** or:
 
 ```bash
 .venv/bin/python scripts/textbook.py index --force

@@ -17,6 +17,8 @@ it("saves edited instructions and preserves the actual thinking preference", asy
   );
   render(
     <SettingsDialog
+      appearance="system"
+      onAppearanceChange={vi.fn()}
       settings={{ instructions: "Original", think: true }}
       index={null}
       health={null}

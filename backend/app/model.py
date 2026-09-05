@@ -48,12 +48,21 @@ class OllamaRuntime:
             response.raise_for_status()
             models = response.json().get("models", [])
             names = {m["name"] for m in models}
+            loaded = None
+            try:
+                running = await self.client.get("/api/ps", timeout=5)
+                running.raise_for_status()
+                loaded = {m["name"] for m in running.json().get("models", [])}
+            except (httpx.HTTPError, ValueError):
+                pass  # Installed models remain usable when memory status is unavailable.
             return {
                 "reachable": True,
                 "model": self.config.model,
                 "model_available": self.config.model in names,
                 "embedding_model": self.config.embedding_model,
                 "embedding_available": self.config.embedding_model in names,
+                "model_loaded": self.config.model in loaded if loaded is not None else None,
+                "embedding_loaded": self.config.embedding_model in loaded if loaded is not None else None,
             }
         except (httpx.HTTPError, ValueError) as exc:
             return {

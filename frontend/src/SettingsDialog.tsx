@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpen, RefreshCw, Save, X } from "lucide-react";
 import { api } from "./api";
 import type { Health, IndexStatus, Settings } from "./types";
+import type { Appearance } from "./appearance";
 
 export function SettingsDialog({
   settings,
@@ -10,6 +11,8 @@ export function SettingsDialog({
   onClose,
   onSave,
   onIndex,
+  appearance,
+  onAppearanceChange,
 }: {
   settings: Settings;
   index: IndexStatus | null;
@@ -17,6 +20,8 @@ export function SettingsDialog({
   onClose: () => void;
   onSave: (value: Settings) => void;
   onIndex: () => Promise<void>;
+  appearance: Appearance;
+  onAppearanceChange: (value: Appearance) => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [instructions, setInstructions] = useState(settings.instructions);
@@ -59,6 +64,27 @@ export function SettingsDialog({
         </button>
       </div>
       <div className="dialog-body">
+        <fieldset className="appearance-settings">
+          <legend>Appearance</legend>
+          <p className="muted">
+            Saved automatically in this browser. System follows your device’s
+            appearance.
+          </p>
+          <div className="appearance-options">
+            {(["system", "light", "dark"] as const).map((value) => (
+              <label key={value}>
+                <input
+                  type="radio"
+                  name="appearance"
+                  value={value}
+                  checked={appearance === value}
+                  onChange={() => onAppearanceChange(value)}
+                />
+                <span>{value.charAt(0).toUpperCase() + value.slice(1)}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
         <label className="instructions-label" htmlFor="instructions">
           Tutor Instructions
         </label>
@@ -120,14 +146,32 @@ export function SettingsDialog({
               The previous index is still available for search.
             </p>
           )}
-          <button
-            className="secondary"
-            disabled={index?.state === "indexing" || !index?.source_found}
-            onClick={() => void onIndex().catch((e) => setError(e.message))}
-          >
-            <RefreshCw size={15} />
-            {index?.searchable ? "Rebuild index" : "Index textbook"}
-          </button>
+          {index?.searchable ? (
+            <details className="index-advanced">
+              <summary>Advanced</summary>
+              <p className="muted" id="reindex-help">
+                Recreates the searchable textbook index. Usually only needed
+                after changing the textbook, embedding model, or retrieval
+                configuration.
+              </p>
+              <button
+                className="quiet-button"
+                aria-describedby="reindex-help"
+                disabled={index.state === "indexing" || !index.source_found}
+                onClick={() => void onIndex().catch((e) => setError(e.message))}
+              >
+                <RefreshCw size={13} /> Re-index textbook
+              </button>
+            </details>
+          ) : (
+            <button
+              className="secondary"
+              disabled={index?.state === "indexing" || !index?.source_found}
+              onClick={() => void onIndex().catch((e) => setError(e.message))}
+            >
+              <RefreshCw size={15} /> Index textbook
+            </button>
+          )}
         </section>
         <div className="runtime-info">
           <span className="eyebrow">LOCAL RUNTIME</span>

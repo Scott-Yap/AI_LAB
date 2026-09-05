@@ -11,6 +11,8 @@ import {
 import { ArrowUpRight, BookOpen, Search, X } from "lucide-react";
 import type { Concept, Graph } from "./types";
 import "@xyflow/react/dist/style.css";
+import { CurriculumEdge } from "./CurriculumEdge";
+import { spacedPositions } from "./graphLayout";
 
 function ConceptNode({ data, selected }: NodeProps) {
   return (
@@ -23,6 +25,7 @@ function ConceptNode({ data, selected }: NodeProps) {
   );
 }
 const nodeTypes = { concept: ConceptNode };
+const edgeTypes = { curriculum: CurriculumEdge };
 
 export function KnowledgeGraph({
   graph,
@@ -40,7 +43,7 @@ export function KnowledgeGraph({
   const [search, setSearch] = useState("");
   const nodes = useMemo(
     () =>
-      graph.nodes.map((node) => ({
+      spacedPositions(graph.nodes).map((node) => ({
         id: node.id,
         position: node.position,
         type: "concept",
@@ -59,16 +62,14 @@ export function KnowledgeGraph({
     () =>
       graph.edges.map((edge) => ({
         ...edge,
-        type: "smoothstep",
+        type: "curriculum",
         label:
           selected &&
           (edge.source === selected.id || edge.target === selected.id)
             ? edge.relationship.replaceAll("_", " ")
             : "",
-        markerEnd: { type: MarkerType.ArrowClosed, color: "#a4b5a8" },
-        style: { stroke: "#a4b5a8", strokeWidth: 1.4 },
-        labelStyle: { fill: "#476354", fontSize: 11 },
-        labelBgStyle: { fill: "#f1f4ec" },
+        markerEnd: { type: MarkerType.ArrowClosed, color: "var(--graph-edge)" },
+        style: { stroke: "var(--graph-edge)", strokeWidth: 1.4 },
       })),
     [graph, selected],
   );
@@ -124,7 +125,8 @@ export function KnowledgeGraph({
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
-          defaultViewport={{ x: 25, y: 20, zoom: 0.72 }}
+          edgeTypes={edgeTypes}
+          defaultViewport={{ x: 25, y: 20, zoom: 0.8 }}
           minZoom={0.25}
           maxZoom={1.6}
           nodesDraggable={false}
@@ -134,7 +136,7 @@ export function KnowledgeGraph({
           }
           onPaneClick={() => onSelect(null)}
         >
-          <Background gap={22} size={1} color="#d5ded1" />
+          <Background gap={22} size={1} color="var(--graph-dot)" />
           <Controls showInteractive={false} />
         </ReactFlow>
       </div>

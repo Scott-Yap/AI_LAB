@@ -1,14 +1,20 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { expect, it, vi } from "vitest";
 import App from "./App";
+import { api } from "./api";
 
 vi.mock("./KnowledgeGraph", () => ({ KnowledgeGraph: () => <div>Graph</div> }));
 vi.mock("./api", () => {
   let reads = 0;
+  let settings = { instructions: "Teach", think: false };
   return {
     streamMessage: vi.fn(),
-    api: vi.fn(async (path: string) => {
-      if (path === "/settings") return { instructions: "Teach", think: false };
+    api: vi.fn(async (path: string, options?: RequestInit) => {
+      if (path === "/settings") {
+        if (options?.method === "PUT")
+          settings = JSON.parse(options.body as string);
+        return settings;
+      }
       if (path === "/conversations")
         return [{ id: "one", title: "Question", updated_at: "2026-09-05" }];
       if (path === "/graph") return { nodes: [], edges: [] };
@@ -51,4 +57,13 @@ it("refreshes a response finalized after cancellation and exposes retry without 
       ).toBeEnabled(),
     { timeout: 3000 },
   );
+  const toggle = screen.getByRole("switch", { name: "Think mode" });
+  expect(toggle.closest(".chat-model-options")).not.toBeNull();
+  expect(toggle.closest(".header-actions")).toBeNull();
+  fireEvent.click(toggle);
+  await waitFor(() => expect(toggle).toHaveAttribute("aria-checked", "true"));
+  expect(api).toHaveBeenCalledWith("/settings", {
+    method: "PUT",
+    body: JSON.stringify({ instructions: "Teach", think: true }),
+  });
 });

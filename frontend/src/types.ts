@@ -23,6 +23,8 @@ export type Health = {
   model_available: boolean;
   embedding_model: string;
   embedding_available: boolean;
+  model_loaded?: boolean | null;
+  embedding_loaded?: boolean | null;
   error?: string;
 };
 export type IndexStatus = {
